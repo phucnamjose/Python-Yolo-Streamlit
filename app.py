@@ -21,7 +21,7 @@ st.set_page_config(
     }
 )
 
-cfg_model_path = 'models/defect4classes_yolov8n.pt'
+cfg_model_path = 'sample_models/defect4classes_yolov8n.pt'
 model = None
 confidence = .5
 
@@ -36,7 +36,7 @@ def image_input(data_src):
     else:
         img_bytes = st.sidebar.file_uploader("upload an image", type=['png', 'jpeg', 'jpg'])
         if img_bytes:
-            img_file = "data/upload_images/" + img_bytes.name
+            img_file = "data/uploaded_images/" + img_bytes.name
             Image.open(img_bytes).save(img_file)
 
     if img_file:
@@ -55,7 +55,7 @@ def video_input(data_src):
     else:
         vid_bytes = st.sidebar.file_uploader("upload a video", type=['mp4', 'mpv', 'avi'])
         if vid_bytes:
-            vid_file = "data/upload_videos" + vid_bytes.name
+            vid_file = "data/uploaded_videos" + vid_bytes.name
             with open(vid_file, 'wb') as out:
                 out.write(vid_bytes.read())
 
@@ -119,7 +119,7 @@ def load_model(path, device):
 
 @st.cache_resource
 def download_model(url):
-    model_file = wget.download(url, out="models")
+    model_file = wget.download(url, out="uploaded_models")
     return model_file
 
 
@@ -129,7 +129,7 @@ def get_user_model():
     if model_src == "file upload":
         model_bytes = st.sidebar.file_uploader("Upload a model file", type=['pt'])
         if model_bytes:
-            model_file = "models/uploaded_" + model_bytes.name
+            model_file = "uploaded_models/" + model_bytes.name
             with open(model_file, 'wb') as out:
                 out.write(model_bytes.read())
     else:
@@ -153,7 +153,7 @@ def main():
     # upload model
     model_src = st.sidebar.radio("Select model weight file", ["demo model", "upload your own model"])
     # URL, upload file (max 200 mb)
-    if model_src == "Use your own model":
+    if model_src == "upload your own model":
         user_model_path = get_user_model()
         if user_model_path:
             cfg_model_path = user_model_path
