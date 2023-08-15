@@ -31,8 +31,10 @@ def image_input(data_src):
     if data_src == 'sample data':
         # get all sample images
         img_path = glob.glob('data/sample_images/*')
-        option = st.selectbox("Select a test image.", tuple(range(1, len(img_path), 1)))
-        img_file = img_path[option - 1]
+        col1, col2 = st.columns(2)
+        with col1:
+            option = st.selectbox("Select a test image.", tuple(range(1, len(img_path) + 1, 1)))
+            img_file = img_path[option - 1]
     else:
         img_bytes = st.sidebar.file_uploader("upload an image", type=['png', 'jpeg', 'jpg'])
         if img_bytes:
