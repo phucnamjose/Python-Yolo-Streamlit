@@ -1,6 +1,5 @@
 import streamlit as st
-import pandas as pd
-import matplotlib.pyplot as plt
+from ultralytics import YOLO
 import glob
 import wget
 from PIL import Image
@@ -106,16 +105,14 @@ def video_input(data_src):
 
 def infer_image(img, size=None):
     model.conf = confidence
-    result = model(img, size=size) if size else model(img)
-    result.render()
-    image = Image.fromarray(result.ims[0])
-    return image
+    result = model.predict(img, save=True, imgsz=size, conf=confidence)
+    drawn_img = result.plot()
+    return drawn_img
 
 
 @st.cache_resource
 def load_model(path, device):
-    model_ = torch.hub.load(repo_or_dir=path, source='local')
-    #model_ = torch.hub.load('ultralytics/ultralytics', 'custom', path=path, force_reload=True)
+    model_ = YOLO(path)
     model_.to(device)
     print("model to ", device)
     return model_
