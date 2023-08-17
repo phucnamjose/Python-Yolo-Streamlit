@@ -22,6 +22,7 @@ After cloning the repo:
 ```bash
 git clone https://github.com/phucnamjose/Python-Streamlit.git
 cd Python-Streamlit
+source setup.sh
 streamlit run app.py --server.port [PORT]
 ```
 
