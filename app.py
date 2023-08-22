@@ -113,7 +113,7 @@ def video_input(data_src):
 
 
 def infer_image(img, size=None):
-    results = model.predict(img, imgsz=size, conf=confidence, classes=model.classes) if size else model.predict(img, conf=confidence, classes=model.classes)
+    results = model.predict(img, imgsz=size, conf=confidence, classes=model.classes, device=model.device) if size else model.predict(img, conf=confidence, classes=model.classes, device=model.device)
     drawn_img = results[0].plot()
     return drawn_img
 
