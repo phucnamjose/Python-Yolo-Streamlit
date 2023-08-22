@@ -46,10 +46,11 @@ def image_input(data_src):
     for img_file in img_files:
         col1, col2 = st.columns(2)
         with col1:
-            st.image(img_file, caption="Selected Image")
+            st.image(img_file, caption="Original Image")
         with col2:
             img = infer_image(img_file)
-            st.image(img, caption="Model prediction")
+            st.image(img, caption="Model Prediction")
+        st.markdown("---")
 
 
 def video_input(data_src):
