@@ -30,7 +30,7 @@ def image_input(data_src):
     img_file = None
     if data_src == 'sample data':
         # get all sample images
-        img_path = glob.glob('data/sample_images/*')
+        img_path = glob.glob('data/sample_images/*.jpg')
         col1, col2 = st.columns(2)
         with col1:
             option = st.selectbox("Select a test image.", tuple(range(1, len(img_path) + 1, 1)))

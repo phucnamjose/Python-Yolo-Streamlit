@@ -160,8 +160,8 @@ cython_debug/
 #.idea/
 
 # Custom folder
-*data
-!data/sample_images
-!data/sample_videos
+*data/
+!data/sample_images/
+!data/sample_videos/
 
-*uploaded_models
+*uploaded_models/
