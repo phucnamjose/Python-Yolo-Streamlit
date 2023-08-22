@@ -176,9 +176,9 @@ def main():
     else:
         # device options
         if torch.cuda.is_available():
-            device_option = st.sidebar.radio("Select Device", ['cpu', 'cuda'], disabled=False, index=0)
+            device_option = st.sidebar.radio("Select Device", ['cpu', 'cuda:0'], disabled=False, index=0)
         else:
-            device_option = st.sidebar.radio("Select Device", ['cpu', 'cuda'], disabled=True, index=0)
+            device_option = st.sidebar.radio("Select Device", ['cpu', 'cuda:0'], disabled=True, index=0)
 
         # load model
         model = load_model(cfg_model_path, device_option)
