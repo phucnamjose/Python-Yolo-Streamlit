@@ -89,7 +89,7 @@ def video_input(data_src):
         while True:
             ret, frame = cap.read()
             if not ret:
-                st.write("Can't read frame, stream ended? Exiting ....")
+                st.markdown("## Can't read frame, stream ended? Exiting ....")
                 break
             frame = cv2.resize(frame, (width, height))
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
