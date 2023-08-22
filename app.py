@@ -196,18 +196,16 @@ def main():
             model.classes = list(model.names.keys())
 
         st.sidebar.markdown("---")
-        clear_input = st.button('Clear Input')
-        if not clear_input:
-            # input options
-            input_option = st.sidebar.radio("Select input type: ", ['image', 'video'])
+        # input options
+        input_option = st.sidebar.radio("Select input type: ", ['image', 'video'])
 
-            # input src option
-            data_src = st.sidebar.radio("Select input source: ", ['sample data', 'upload your own data'])
+        # input src option
+        data_src = st.sidebar.radio("Select input source: ", ['sample data', 'upload your own data'])
 
-            if input_option == 'image':
-                image_input(data_src)
-            else:
-                video_input(data_src)
+        if input_option == 'image':
+            image_input(data_src)
+        else:
+            video_input(data_src)
 
 
 if __name__ == "__main__":
