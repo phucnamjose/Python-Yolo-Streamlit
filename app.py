@@ -7,6 +7,7 @@ import torch
 import cv2
 import os
 import time
+import numpy as np
 
 # Page Information
 st.set_page_config(
@@ -39,9 +40,12 @@ def image_input(data_src):
         for uploaded_file in uploaded_files:
             img_bytes = uploaded_file.read()
             if img_bytes:
-                print(uploaded_file.name)
+                print('Upload image: ', uploaded_file.name)
                 img_file = "data/uploaded_images/" + uploaded_file.name
-                Image.open(img_bytes).save(img_file)
+                # Convert the file to an opencv image.
+                file_bytes = np.asarray(bytearray(img_bytes), dtype=np.uint8)
+                opencv_image = cv2.imdecode(file_bytes, 1)
+                cv2.imwrite(img_file, opencv_image)
                 img_files.append(img_file)
 
     for img_file in img_files:
