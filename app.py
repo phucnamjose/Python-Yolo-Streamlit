@@ -27,21 +27,23 @@ confidence = .5
 
 
 def image_input(data_src):
-    img_file = None
+    img_files = []
     if data_src == 'sample data':
         # get all sample images
         img_path = glob.glob('data/sample_images/*.jpg')
         col1, col2 = st.columns(2)
         with col1:
-            option = st.selectbox("Select a test image.", tuple(range(1, len(img_path) + 1, 1)))
-            img_file = img_path[option - 1]
+            img_files = img_path
     else:
-        img_bytes = st.sidebar.file_uploader("upload an image", type=['png', 'jpeg', 'jpg'])
-        if img_bytes:
-            img_file = "data/uploaded_images/" + img_bytes.name
-            Image.open(img_bytes).save(img_file)
+        uploaded_files = st.sidebar.file_uploader("upload an image", type=['png', 'jpeg', 'jpg'], accept_multiple_files=True)
+        for uploaded_file in uploaded_files:
+            img_bytes = uploaded_file.read()
+            if img_bytes:
+                img_file = "data/uploaded_images/" + uploaded_file.name
+                Image.open(img_bytes).save(img_file)
+                img_files.append(img_file)
 
-    if img_file:
+    for img in img_files:
         col1, col2 = st.columns(2)
         with col1:
             st.image(img_file, caption="Selected Image")
@@ -89,7 +91,7 @@ def video_input(data_src):
         while True:
             ret, frame = cap.read()
             if not ret:
-                st.markdown("## Can't read frame, stream ended? Exiting ....")
+                output.markdown("## Can't read frame, stream ended? Exiting ....")
                 break
             frame = cv2.resize(frame, (width, height))
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
