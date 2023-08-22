@@ -39,6 +39,7 @@ def image_input(data_src):
         for uploaded_file in uploaded_files:
             img_bytes = uploaded_file.read()
             if img_bytes:
+                print(uploaded_file.name)
                 img_file = "data/uploaded_images/" + uploaded_file.name
                 Image.open(img_bytes).save(img_file)
                 img_files.append(img_file)
@@ -60,7 +61,7 @@ def video_input(data_src):
     else:
         vid_bytes = st.sidebar.file_uploader("upload a video", type=['mp4', 'mpv', 'avi'])
         if vid_bytes:
-            vid_file = "data/uploaded_videos" + vid_bytes.name
+            vid_file = "data/uploaded_videos/" + vid_bytes.name
             with open(vid_file, 'wb') as out:
                 out.write(vid_bytes.read())
 
